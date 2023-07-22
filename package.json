@@ -1,0 +1,9 @@
+{
+    "name": "acceptance-status-checker",
+    "version": "1.0.0",
+    "description": "Acceptance status checker website",
+    "main": "server.js",
+    "dependencies": {
+        "express": "^4.18.2"
+    }
+}

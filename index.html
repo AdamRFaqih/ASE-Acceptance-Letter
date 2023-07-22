@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Acceptance Status Checker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .input-container {
+            margin-bottom: 20px;
+        }
+        label {
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        #check-status-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        #check-status-btn:hover {
+            background-color: #45a049;
+        }
+        #result {
+            display: none;
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        #result p {
+            margin: 0;
+            font-weight: bold;
+        }
+        #result.success {
+            background-color: #c8e6c9;
+            color: #43a047;
+        }
+        #result.error {
+            background-color: #ffcdd2;
+            color: #f44336;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Acceptance Status Checker</h2>
+        <div class="input-container">
+            <label for="student-id">Student ID:</label>
+            <input type="text" id="student-id" placeholder="Enter your student ID">
+        </div>
+        <div class="input-container">
+            <label for="password">Password:</label>
+            <input type="password" id="password" placeholder="Enter your password">
+        </div>
+        <button id="check-status-btn">Check Status</button>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        const checkStatusBtn = document.getElementById('check-status-btn');
+        const studentIdInput = document.getElementById('student-id');
+        const passwordInput = document.getElementById('password');
+        const resultDiv = document.getElementById('result');
+
+        checkStatusBtn.addEventListener('click', () => {
+            const studentId = studentIdInput.value;
+            const password = passwordInput.value;
+
+            fetch(`/check-status?studentId=${studentId}&password=${password}`)
+                .then(response => response.json())
+                .then(data => {
+                    resultDiv.innerText = data.message;
+                    resultDiv.classList.remove('success', 'error');
+                    resultDiv.classList.add(data.success ? 'success' : 'error');
+                    resultDiv.style.display = 'block';
+                })
+                .catch(error => {
+                    resultDiv.innerText = 'An error occurred while checking the status. Please try again.';
+                    resultDiv.classList.remove('success', 'error');
+                    resultDiv.classList.add('error');
+                    resultDiv.style.display = 'block';
+                });
+        });
+    </script>
+</body>
+</html>
