@@ -1,9 +1,17 @@
 {
-    "name": "acceptance-status-checker",
+    "name": "my-student-acceptance-app",
     "version": "1.0.0",
-    "description": "Acceptance status checker website",
+    "description": "A web application for checking student acceptance status",
     "main": "server.js",
+    "scripts": {
+        "start": "node server.js",
+        "install": "npm ci"
+    },
+    "author": "Your Name",
+    "license": "MIT",
     "dependencies": {
-        "express": "^4.18.2"
+        "express": "^4.17.1",
+        "mysql": "^2.18.1",
+        "mysql2": "^2.3.3"
     }
 }
